@@ -1,0 +1,48 @@
+
+1. Import Libraries
+
+pandas is used to load and manipulate data.
+
+train_test_split helps to divide the dataset into training and testing sets.
+
+DecisionTreeClassifier is the machine learning algorithm being used.
+
+accuracy_score and classification_report are for evaluating how well the model performs.
+---
+2. Load the Data
+The Excel file containing the HVAC data is read into a DataFrame named df.
+---
+3. Create a Target Variable (Size)
+A new column called Size is created using a rule:
+
+If velocity is more than 20 m/s or pressure loss is more than 5 Pa/m, it's labeled as "Undersized".
+
+Otherwise, it's labeled as "Properly sized".
+
+---
+4. Select Features and Target
+
+The features used for prediction are: Airflow Rate, Velocity, and Pressure Loss.
+
+The target variable is the newly created Size column.
+---
+5. Split the Data
+The dataset is split into 80% training and 20% testing data to evaluate how well the model performs on unseen data.
+
+---
+6. Train the Decision Tree Model
+The decision tree classifier is trained on the training data using the selected features.
+---
+7. Make Predictions
+The trained model is used to predict the target values on the test set.
+---
+8. Evaluate the Model
+
+Accuracy tells you how many predictions were correct overall.
+
+Classification Report gives you a detailed breakdown of precision, recall, and F1-score for each class (Undersized or Properly sized).
+---
+9. Display the Results
+The accuracy and classification report are printed so you can see how well the model did.
+
+---
