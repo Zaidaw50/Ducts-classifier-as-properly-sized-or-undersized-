@@ -1,0 +1,36 @@
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.metrics import classification_report, accuracy_score
+
+# Load the data
+file_path = "/mnt/data/HVAC_Duct_System_Data.xlsx"
+df = pd.read_excel(file_path, sheet_name='Sheet1')
+
+# Create a binary target variable 'Size' using our rule of thumb:
+# - Undersized if Velocity > 20 m/s or Pressure Loss > 5 Pa/m
+# - Properly sized otherwise
+df['Size'] = df.apply(lambda row: 'Undersized' if (row['Velocity (m/s)'] > 20 or row['Pressure Loss (Pa/m)'] > 5) else 'Properly sized', axis=1)
+
+# Define features and target
+features = ['Airflow Rate (CFM)', 'Velocity (m/s)', 'Pressure Loss (Pa/m)']
+X = df[features]
+y = df['Size']
+
+# Split data into training and testing sets (80% train, 20% test)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Train a Decision Tree Classifier
+clf = DecisionTreeClassifier(random_state=42)
+clf.fit(X_train, y_train)
+
+# Make predictions on the test set
+y_pred = clf.predict(X_test)
+
+# Evaluate the model
+accuracy = accuracy_score(y_test, y_pred)
+report = classification_report(y_test, y_pred)
+
+print("Accuracy:", accuracy)
+print("Classification Report:")
+print(report)
